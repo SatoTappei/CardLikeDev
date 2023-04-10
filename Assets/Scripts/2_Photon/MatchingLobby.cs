@@ -12,7 +12,9 @@ public class MatchingLobby : MonoBehaviourPunCallbacks
     [Header("マッチング用のボタン")]
     [SerializeField] Button _matchingButton;
 
+    /// <summary>部屋に入ったか</summary>
     bool _isJoinedRoom;
+    /// <summary>既に遷移の処理が呼ばれているか</summary>
     bool _isSceneLoaded;
 
     void Awake()
@@ -26,7 +28,6 @@ public class MatchingLobby : MonoBehaviourPunCallbacks
         // 既に遷移中もしくは部屋に接続できていない状態なら処理を打ち切る
         if (_isSceneLoaded || !_isJoinedRoom) return;
 
-        // 1度しか遷移の処理を呼びたくないので遷移中のフラグを立てる
         if (PhotonNetwork.CurrentRoom.MaxPlayers == PhotonNetwork.CurrentRoom.PlayerCount)
         {
             _isSceneLoaded = true;

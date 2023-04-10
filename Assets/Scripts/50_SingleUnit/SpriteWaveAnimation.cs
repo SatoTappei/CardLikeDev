@@ -7,7 +7,7 @@ using UnityEngine;
 /// </summary>
 public class SpriteWaveAnimation : MonoBehaviour
 {
-    [Header("“®‚©‚·‰æ‘œ‚ÌTransform")]
+    [Header("“®‚©‚·‰æ‘œ")]
     [SerializeField] Transform _trans;
 
     void Start()
