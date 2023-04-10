@@ -639,52 +639,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 716b64c1fdb9b3a4b85757c89b3e2045, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &1882737689
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1882737691}
-  - component: {fileID: 1882737690}
-  m_Layer: 0
-  m_Name: MemoPad
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1882737690
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1882737689}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: af6bcff5f14a5b047b11cb653f7f0222, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  memo: "\u2605\u6982\u8981\r\n\u30ED\u30FC\u30AB\u30EB\u74B0\u5883\u7528\u30AA\u30F3\u30E9\u30A4\u30F3\u30AB\u30FC\u30C9\u30B2\u30FC\u30E0\r\n\u30B9\u30C6\u30FC\u30C8\u30D9\u30FC\u30B9\u3067\u30B2\u30FC\u30E0\u306E\u6D41\u308C\u3092\u7BA1\u7406\u3059\u308B\r\n\n\u2605\u5C0E\u5165\u6E08\u307F\nURP\nPUN2FREE\r\nUniRx\n2DCasual
-    UI HD\n\r\n\u2605\u73FE\u72B6\n\u30DE\u30A6\u30B9\u30C9\u30E9\u30C3\u30B0\u3067\u30AB\u30FC\u30C9\u3092\u5834\u306B\u51FA\u3059\u306E\u306F\u64CD\u4F5C\u306B\u591A\u5C11\u306E\u7E4A\u7D30\u3055\u304C\u8981\u6C42\u3055\u308C\u308B\u306E\u3067NG\r\n\u30DE\u30A6\u30B9\u30AF\u30EA\u30C3\u30AF\u3067\u51FA\u305B\u308B\u3088\u3046\u306B\u3059\u308B\n\n\u2605\u78BA\u8A8D\u6E08\u307F\u306E\u4E0D\u5177\u5408\r\n\u624B\u672D\u306E\u30AB\u30FC\u30C9\u3092\u9AD8\u901F\u3067\u9023\u7D9A\u30AF\u30EA\u30C3\u30AF\u3059\u308B\u3068\u5834\u306B\u30AB\u30FC\u30C9\u304C2\u679A\u91CD\u306A\u3063\u3066\u3057\u307E\u3046\u3002\r\n\u5834\u306B\u51FA\u3066\u3044\u308B\u30AB\u30FC\u30C9\u306F1\u679A\u3068\u3057\u3066\u8A8D\u8B58\u3055\u308C\u3066\u3044\u308B\u3002\r\n\u4ED6\u306E\u624B\u672D\u306E\u30AB\u30FC\u30C9\u3092\u30AF\u30EA\u30C3\u30AF\u3059\u308B\u3053\u3068\u3067\u623B\u308B\u3002"
---- !u!4 &1882737691
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1882737689}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 12
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1965965905
 GameObject:
   m_ObjectHideFlags: 0

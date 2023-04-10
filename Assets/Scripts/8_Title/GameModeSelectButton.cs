@@ -6,6 +6,8 @@ using UnityEngine.UI;
 /// </summary>
 public class GameModeSelectButton : ExtendButton
 {
+    [Header("選択するゲームモード")]
+    [SerializeField] GameMode _gameMode;
     [Header("遷移先のシーンの名前")]
     [SerializeField] string _nextSceneName;
 
@@ -24,5 +26,6 @@ public class GameModeSelectButton : ExtendButton
     {
         _button.interactable = false;
         GameManager.Instance.SceneTransition(_nextSceneName);
+        GameManager.Instance.CurrentGameMode = _gameMode;
     }
 }

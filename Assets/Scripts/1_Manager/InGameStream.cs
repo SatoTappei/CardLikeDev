@@ -1,11 +1,27 @@
 using UnityEngine;
 
 /// <summary>
+/// インゲームの各状態の列挙型
+/// </summary>
+public enum StateType
+{
+    StartPerformance,
+    CardSelect,
+    Judge,
+    TurnResult,
+    NextTurnPerformance,
+    EndPerformance,
+}
+
+/// <summary>
 /// ゲームプレイの進行をステートベースで制御する
 /// </summary>
 public class InGameStream : MonoBehaviour
 {
-
+    public StateTypeBase GetState(StateType type)
+    {
+        return null;
+    }
 
     ///// <summary>ゲームの勝敗が決まる勝利数</summary>
     //readonly int _gameSetPoint = 4;

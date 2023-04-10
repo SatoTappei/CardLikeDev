@@ -2,13 +2,25 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 /// <summary>
+/// タイトルで選択したゲームモードを表すための列挙型
+/// </summary>
+public enum GameMode
+{
+    CPU,
+    Online,
+}
+
+/// <summary>
 /// ゲーム全体を通して存在するのでシーンの遷移でも破棄されない
 /// </summary>
 public class GameManager : MonoBehaviour
 {
-    public static GameManager Instance;
+    public static GameManager Instance { get; private set; }
 
     [SerializeField] FadeModule _fadeModule;
+
+    /// <summary>タイトルでボタンを押した際にゲームモードが決定される</summary>
+    public GameMode CurrentGameMode { get; set; }
 
     void Awake()
     {
