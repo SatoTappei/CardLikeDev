@@ -1,4 +1,8 @@
 using UnityEngine;
+using System.Collections.Generic;
+using Photon.Pun;
+using Photon.Realtime;
+using UnityEngine.UI;
 
 /// <summary>
 /// インゲームの各状態の列挙型
@@ -16,73 +20,52 @@ public enum StateType
 /// <summary>
 /// ゲームプレイの進行をステートベースで制御する
 /// </summary>
-public class InGameStream : MonoBehaviour
+public class InGameStream : MonoBehaviourPunCallbacks
 {
-    public StateTypeBase GetState(StateType type)
+    [SerializeField] StartPerformance _startPerformance;
+    [SerializeField] Text _text;
+
+    Dictionary<StateType, StateTypeBase> _stateDic = new Dictionary<StateType, StateTypeBase>();
+    StateTypeBase _currentState;
+
+    void Awake()
     {
-        return null;
+        StateTypeStartPerformance stateTypeStartPerformance = new(this, _startPerformance);
+        StateTypeCardSelect stateTypeCardSelect = new(this);
+
+        _stateDic.Add(StateType.StartPerformance, stateTypeStartPerformance);
+        _stateDic.Add(StateType.CardSelect, stateTypeCardSelect);
+
+        _currentState = stateTypeStartPerformance;
     }
 
-    ///// <summary>ゲームの勝敗が決まる勝利数</summary>
-    //readonly int _gameSetPoint = 4;
-    ///// <summary>決着がついたかを判定する</summary>
-    //bool _isGameSet;
+    void Start()
+    {
+        _text.text = PhotonNetwork.LocalPlayer.ActorNumber.ToString();
+    }
 
-    //[SerializeField] StartEffect _startEffect;
-    //[SerializeField] ResultEffect _resultEffect;
-    //[SerializeField] NextTurnEffect _nextTurnEffect;
-    //[SerializeField] PlayerUnit _player1;
-    //[SerializeField] PlayerUnit _player2;
-    //[SerializeField] CommonUI _commonUI;
+    void Update()
+    {
+        _currentState = _currentState.Execute();
+    }
 
-    //IEnumerator Start()
-    //{
-    //    _commonUI.Init();
-    //    yield return _startEffect.EffectCoroutine();
-    //    _player1.Init();
-    //    _player2.Init();
+    // プレイヤーがカードを出した時のコールバックとして登録する
+    void SendPlayerCard()
+    {
+        // プレイヤーが選択してカードの番号を送る
+        photonView.RPC(nameof(RPCOnRecievedCard), RpcTarget.Others, 1994);
+    }
 
-    //    while (true)
-    //    {
-    //        _player1.TurnStart();
-    //        _player2.TurnStart();
+    [PunRPC]
+    void RPCOnRecievedCard(int number)
+    {
+        Debug.Log(number);
+    }
 
-    //        // 両者がカードを選ぶまで待つ
-    //        yield return new WaitUntil(() => _player1.IsSelected);
-    //        yield return new WaitUntil(() => _player2.IsSelected);
-    //        // 勝敗の判定を行う
-    //        BattleSystem bs = new BattleSystem();
-    //        int resultP1 = bs.Battle(_player1.GetSelectedCard(), _player2.GetSelectedCard());
-    //        int resultP2 = bs.Battle(_player2.GetSelectedCard(), _player1.GetSelectedCard());
-    //        // それぞれのプレイヤーのUIを更新
-    //        _player1.SetBattleResult(resultP1);
-    //        _player2.SetBattleResult(resultP2);
-    //        // 勝敗の表示をする
-    //        // TODO:現状はプレイヤー1が勝ったら勝ち、負けたら負けと表示するが
-    //        //      後々対戦を実装するので勝った側には勝ち、負けた側には負けと表示させられるようにする
-    //        yield return _commonUI.SetBattleResult(resultP1);
+    public StateTypeBase GetState(StateType type) => _stateDic[type];
 
-    //        // ゲーム終了の判定、ゲームセットならループを抜ける
-    //        if (_player1.WinCount == _gameSetPoint ||
-    //            _player2.WinCount == _gameSetPoint)
-    //        {
-    //            break;
-    //        }
-
-    //        // ターン最後の処理
-    //        _player1.TurnEnd();
-    //        _player2.TurnEnd();
-    //        // "次のターン"の演出
-    //        yield return _nextTurnEffect.EffectCoroutine();
-    //    }
-
-    //    // 結果表示の演出
-    //    // もう一度やるか選ぶ
-    //    yield return _resultEffect.EffectCoroutine();
-    //}
-
-    //void Update()
-    //{
-        
-    //}
+    public override void OnPlayerLeftRoom(Player otherPlayer)
+    {
+        Debug.Log($"{otherPlayer.NickName}が退出しました");
+    }
 }

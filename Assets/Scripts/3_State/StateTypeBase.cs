@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
@@ -19,27 +17,31 @@ public class StateTypeBase
     StateTypeBase _nextState;
     InGameStream _controller;
 
-    public StateTypeBase(InGameStream inGameStream)
+    public StateTypeBase(InGameStream controller)
     {
-        _controller = inGameStream;
+        _controller = controller;
     }
 
-    public void Execute()
+    public StateTypeBase Execute()
     {
         if (_stage == Stage.Enter)
         {
             Enter();
             _stage = Stage.Stay;
+            return this;
         }
         else if (_stage == Stage.Stay)
         {
             Stay();
+            return this;
         }
         else if (_stage == Stage.Exit)
         {
             Exit();
             _stage = Stage.Enter;
         }
+
+        return _nextState;
     }
 
     protected virtual void Enter() { }
