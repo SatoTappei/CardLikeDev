@@ -19,9 +19,7 @@ public class GameModeSelectButton : ExtendButton
         _button.onClick.AddListener(OnClick);
     }
 
-    /// <summary>
-    /// 選択したシーンに遷移する
-    /// </summary>
+    /// <summary>選択したシーンに遷移する</summary>
     public void OnClick()
     {
         _button.interactable = false;

@@ -2,7 +2,6 @@ using UnityEngine;
 
 /// <summary>
 /// それぞれのカードのデータ
-/// プレイヤー2人が同じデータを参照する
 /// </summary>
 [CreateAssetMenu]
 public class CardDataSO : ScriptableObject
@@ -20,8 +19,8 @@ public class CardDataSO : ScriptableObject
 }
 
 /// <summary>
-/// CardDataSOを取得するときに使用するタグ
-/// カードにそれぞれ割り当ててゲーム開始時にSOを取得してくる
+/// カードの種類を判別する場合に使用するタグ
+/// 今のところ使っていない
 /// </summary>
 public enum CardTag
 {

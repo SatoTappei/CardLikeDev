@@ -22,9 +22,18 @@ public class Card : MonoBehaviour,
     Image _sprite;
     bool _isSelectable;
 
+    /// <summary>
+    /// 外部からこのカードを識別したい時に取得する
+    /// 必要に応じてカードの番号以外にも取得可能にする
+    /// </summary>
+    public int Num => _so.Num;
+
     void Awake()
     {
         _sprite = GetComponentInChildren<Image>();
+        Text text = GetComponentInChildren<Text>();
+        text.text = _so.Num.ToString();
+
         // 相手側のカードの場合はプレイヤーがクリック出来ないようにする
         _isSelectable = !_isOtherSide ? true : false;
     }
