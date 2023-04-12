@@ -14,10 +14,10 @@ public class PlayerUnit : MonoBehaviour
     [SerializeField] Button _submitButton;
     [SerializeField] Text _counter;
     /// <summary>手持ちのカードは10枚で固定なので配列で管理する</summary>
-    [SerializeField] CardUnit[] _cards;
+    [SerializeField] Card[] _cards;
 
     /// <summary>このターン選択したカード</summary>
-    CardUnit _selectedCard;
+    Card _selectedCard;
     /// <summary>現在の勝利数</summary>
     public int WinCount { get; private set; }
     /// <summary>
@@ -41,12 +41,12 @@ public class PlayerUnit : MonoBehaviour
         // 決定ボタンにカード選択完了の処理を割り当てる
         _submitButton.onClick.AddListener(() => ClickedSubmitButton());
 
-        foreach (CardUnit card in _cards)
+        foreach (Card card in _cards)
         {
             // 各カードの初期化処理を行う
-            card.Init(_field);
+            //card.Init(_field);
             // クリックされたときの処理(場に出す)を登録する
-            card.OnClicked += _playerCommand.ToField;
+            //card.OnClicked += _playerCommand.ToField;
             // ソートできるようにプレイヤーの手札をソート用の辞書に登録する
             _playerCommand.AddSortDic(card.gameObject);
         }
@@ -65,7 +65,7 @@ public class PlayerUnit : MonoBehaviour
         // カードを出すまでボタンを押せないようにする
         _submitButton.interactable = false;
         // 全てのカードをアクティブにする
-        foreach (CardUnit card in _cards)
+        foreach (Card card in _cards)
             card.Inactive(true);
     }
 
@@ -78,7 +78,7 @@ public class PlayerUnit : MonoBehaviour
     }
 
     /// <summary>このターン選択したカードを取得する</summary>
-    public CardUnit GetSelectedCard() => _selectedCard;
+    public Card GetSelectedCard() => _selectedCard;
 
     /// <summary>
     /// 決定ボタンをクリックしたときの処理
@@ -91,10 +91,10 @@ public class PlayerUnit : MonoBehaviour
         // 出すカードを決定したフラグを立てる
         IsSelected = true;
         // 場の子オブジェクトから取得し、それを選択したカードとする
-        _selectedCard = _field.GetComponentInChildren<CardUnit>();
+        _selectedCard = _field.GetComponentInChildren<Card>();
 
         // 場に出したカード以外を非アクティブ状態にする
-        foreach (CardUnit card in _cards)
+        foreach (Card card in _cards)
         {
             // TODO:現状は場の一番目のオブジェクトを取得して選択したカードを見ているが
             //      選択したカードという変数を作ることも考慮する
