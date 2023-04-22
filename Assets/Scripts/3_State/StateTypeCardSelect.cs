@@ -11,6 +11,9 @@ public class StateTypeCardSelect : StateTypeBase
 
     protected override void Stay()
     {
-        Debug.Log("カード選択状態");
+        if (Controller.IsAllPlayerSelected())
+        {
+            Debug.Log("カード選択状態から遷移");
+        }
     }
 }

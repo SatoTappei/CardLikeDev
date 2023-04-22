@@ -15,12 +15,13 @@ public class StateTypeBase
 
     Stage _stage;
     StateTypeBase _nextState;
-    InGameStream _controller;
 
     public StateTypeBase(InGameStream controller)
     {
-        _controller = controller;
+        Controller = controller;
     }
+
+    public InGameStream Controller;
 
     public StateTypeBase Execute()
     {
@@ -60,7 +61,7 @@ public class StateTypeBase
             return false;
         }
 
-        _nextState = _controller.GetState(type);
+        _nextState = Controller.GetState(type);
         _stage = Stage.Exit;
         return true;
     }

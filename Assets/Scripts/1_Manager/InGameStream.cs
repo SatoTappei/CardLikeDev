@@ -25,11 +25,14 @@ public class InGameStream : MonoBehaviourPunCallbacks
     [SerializeField] StartPerformance _startPerformance;
     [SerializeField] Text _text;
 
+    PlayerManager _playerManager;
     Dictionary<StateType, StateTypeBase> _stateDic = new Dictionary<StateType, StateTypeBase>();
     StateTypeBase _currentState;
 
     void Awake()
     {
+        _playerManager = GetComponent<PlayerManager>();
+
         StateTypeStartPerformance stateTypeStartPerformance = new(this, _startPerformance);
         StateTypeCardSelect stateTypeCardSelect = new(this);
 
@@ -49,20 +52,22 @@ public class InGameStream : MonoBehaviourPunCallbacks
         _currentState = _currentState.Execute();
     }
 
-    // プレイヤーがカードを出した時のコールバックとして登録する
-    void SendPlayerCard()
-    {
-        // プレイヤーが選択してカードの番号を送る
-        photonView.RPC(nameof(RPCOnRecievedCard), RpcTarget.Others, 1994);
-    }
+    //// プレイヤーがカードを出した時のコールバックとして登録する
+    //void SendPlayerCard()
+    //{
+    //    // プレイヤーが選択してカードの番号を送る
+    //    photonView.RPC(nameof(RPCOnRecievedCard), RpcTarget.Others, 1994);
+    //}
 
-    [PunRPC]
-    void RPCOnRecievedCard(int number)
-    {
-        Debug.Log(number);
-    }
+    //[PunRPC]
+    //void RPCOnRecievedCard(int number)
+    //{
+    //    Debug.Log(number);
+    //}
 
     public StateTypeBase GetState(StateType type) => _stateDic[type];
+
+    public bool IsAllPlayerSelected() => _playerManager.IsAllPlayerSelected();
 
     public override void OnPlayerLeftRoom(Player otherPlayer)
     {
