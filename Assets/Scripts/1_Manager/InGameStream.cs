@@ -25,13 +25,13 @@ public class InGameStream : MonoBehaviourPunCallbacks
     [SerializeField] StartPerformance _startPerformance;
     [SerializeField] Text _text;
 
-    PlayerManager _playerManager;
+    SelectedCardHolder _playerManager;
     Dictionary<StateType, StateTypeBase> _stateDic = new Dictionary<StateType, StateTypeBase>();
     StateTypeBase _currentState;
 
     void Awake()
     {
-        _playerManager = GetComponent<PlayerManager>();
+        _playerManager = GetComponent<SelectedCardHolder>();
 
         StateTypeStartPerformance stateTypeStartPerformance = new(this, _startPerformance);
         StateTypeCardSelect stateTypeCardSelect = new(this);

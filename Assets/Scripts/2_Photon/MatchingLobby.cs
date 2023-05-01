@@ -35,18 +35,9 @@ public class MatchingLobby : MonoBehaviourPunCallbacks
         }
     }
 
-    public override void OnConnectedToMaster()
-    {
-        PhotonNetwork.JoinRandomRoom();
-    }
+    public override void OnConnectedToMaster() => PhotonNetwork.JoinRandomRoom();
 
-    public override void OnJoinedRoom()
-    {
-        _isJoinedRoom = true;
-
-        //Vector3 pos = new Vector3(Random.Range(-3f, 3f), Random.Range(-3f, 3f));
-        //PhotonNetwork.Instantiate("Circle", pos, Quaternion.identity);
-    }
+    public override void OnJoinedRoom() => _isJoinedRoom = true;
 
     public override void OnJoinRandomFailed(short returnCode, string message)
     {

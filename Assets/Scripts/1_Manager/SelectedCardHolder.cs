@@ -4,9 +4,10 @@ using UnityEngine.UI;
 using ExitGames.Client.Photon;
 
 /// <summary>
-/// プレイヤーの操作を管理する
+/// 両者が選択したカードを保持するクラス
+/// 決定ボタンを押した際に場の子になっているカードが決定される
 /// </summary>
-public class PlayerManager : MonoBehaviourPunCallbacks
+public class SelectedCardHolder : MonoBehaviourPunCallbacks
 {
     /// <summary>
     /// 未選択状態を表す

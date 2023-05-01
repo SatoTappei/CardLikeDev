@@ -1,12 +1,12 @@
 using UniRx;
 using UniRx.Triggers;
 using UnityEngine;
-using UnityEngine.UI;
 
 /// <summary>
-/// ゲーム中のカードの制御を行う
+/// プレイヤーのカードをマウスで操作したときの挙動のクラス
+/// 場に出す/手札に戻すを行う
 /// </summary>
-public class CardManager : MonoBehaviour
+public class PlayerCardBehavior : MonoBehaviour
 {
     [Header("ゲーム中に使用するカード")]
     [SerializeField] Card[] _cards;

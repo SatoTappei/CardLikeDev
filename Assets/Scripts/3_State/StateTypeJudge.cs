@@ -10,4 +10,9 @@ public class StateTypeJudge : StateTypeBase
     public StateTypeJudge(InGameStream controller) : base(controller)
     {
     }
+
+    protected override void Enter()
+    {
+        // 相手側の選択したカードが場に出てくるAnimation
+    }
 }

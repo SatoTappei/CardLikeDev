@@ -1,5 +1,3 @@
-using UnityEngine;
-
 /// <summary>
 /// カードを選択する状態
 /// </summary>
@@ -11,9 +9,10 @@ public class StateTypeCardSelect : StateTypeBase
 
     protected override void Stay()
     {
+        // 両者がカードを決定した場合は判定の状態に遷移する
         if (Controller.IsAllPlayerSelected())
         {
-            Debug.Log("カード選択状態から遷移");
+            TryChangeState(StateType.Judge);
         }
     }
 }
