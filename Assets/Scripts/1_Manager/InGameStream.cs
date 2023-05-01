@@ -70,6 +70,8 @@ public class InGameStream : MonoBehaviourPunCallbacks
 
     public bool IsAllPlayerSelected() => _selectedCardHolder.IsAllPlayerSelected();
 
+    public Card GetEnemySelectedCard() => _selectedCardHolder.GetEnemySelectedCard();
+
     public override void OnPlayerLeftRoom(Player otherPlayer)
     {
         Debug.Log($"{otherPlayer.NickName}‚ª‘Şo‚µ‚Ü‚µ‚½");

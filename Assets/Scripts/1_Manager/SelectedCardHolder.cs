@@ -20,11 +20,14 @@ public class SelectedCardHolder : MonoBehaviourPunCallbacks
     [Header("場")]
     [SerializeField] Transform _field;
 
+    CardRegister _cardRegister;
+
     public int Player1Selected { get; private set; }
     public int Player2Selected { get; private set; }
 
-    void Awake()
+    void Start()
     {
+        _cardRegister = GetComponent<CardRegister>();
         _submitButton.onClick.AddListener(SubmitSelectedCard);
         ResetSelectedCard();
     }
@@ -91,6 +94,24 @@ public class SelectedCardHolder : MonoBehaviourPunCallbacks
                 throw new System.InvalidOperationException(
                     $"プレイヤーを識別するCustomPropertyのキーの値が不正: {prop.Key}");
             }
+        }
+    }
+
+    public Card GetEnemySelectedCard()
+    {
+        string key = Utility.GetPlayerCustomPropertyKey(PhotonNetwork.LocalPlayer.ActorNumber);
+        if (key == Utility.Player1CustomPropertyKey)
+        {
+            return _cardRegister.GetEnemyCard(Player2Selected);
+        }
+        else if(key == Utility.Player2CustomPropertyKey)
+        {
+            return _cardRegister.GetEnemyCard(Player1Selected);
+        }
+        else
+        {
+            throw new System.InvalidOperationException(
+                $"プレイヤーを識別するCustomPropertyのキーの値が不正: {key}");
         }
     }
 }

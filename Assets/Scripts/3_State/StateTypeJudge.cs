@@ -13,6 +13,8 @@ public class StateTypeJudge : StateTypeBase
 
     protected override void Enter()
     {
+        Card c = Controller.GetEnemySelectedCard();
+        Debug.Log($"相手が選んだカードは: {c.Num}");
         // 相手側の選択したカードが場に出てくるAnimation
     }
 }

@@ -1,5 +1,5 @@
-using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 /// <summary>
@@ -13,6 +13,17 @@ public class CardRegister : MonoBehaviour
     [Header("“G‘¤‚ÌƒJ[ƒh")]
     [SerializeField] Card[] _enemyCards;
 
-    public Card[] PlayerCards => _playerCards;
-    public Card[] EnemyCards => _enemyCards;
+    public IReadOnlyCollection<Card> PlayerCards => _playerCards;
+    public IReadOnlyCollection<Card> EnemyCards => _enemyCards;
+    Dictionary<int, Card> _playerCardDict = new();
+    Dictionary<int, Card> _enemyCardDict = new();
+
+    void Awake()
+    {
+        _playerCardDict = _playerCards.ToDictionary(c => c.Num, c => c);
+        _enemyCardDict = _enemyCards.ToDictionary(c => c.Num, c => c);
+    }
+
+    public Card GetPlayerCard(int num) => _playerCardDict[num];
+    public Card GetEnemyCard(int num) => _enemyCardDict[num];
 }

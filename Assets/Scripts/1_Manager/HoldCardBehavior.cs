@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UniRx;
 using UniRx.Triggers;
 using UnityEngine;
@@ -16,18 +17,15 @@ public class HoldCardBehavior : MonoBehaviour
 
     void Start()
     {
-        if (_isPlayerHold)
-        {
-            Card[] cards = GetComponent<CardRegister>().PlayerCards;
-            InitCardSubscribe(cards);
-        }
+        if (_isPlayerHold) InitCardSubscribe();
     }
 
     /// <summary>
     /// プレイヤー側の場合はカードをマウスクリックで操作出来るようにする
     /// </summary>
-    void InitCardSubscribe(Card[] cards)
+    void InitCardSubscribe()
     {
+        IReadOnlyCollection<Card> cards = GetComponent<CardRegister>().PlayerCards;
         foreach (Card card in cards)
         {
             // IPointer系と違ってコライダーを付けないと反応しない
