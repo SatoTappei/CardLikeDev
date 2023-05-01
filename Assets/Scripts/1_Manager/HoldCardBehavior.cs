@@ -8,25 +8,27 @@ using UnityEngine;
 /// </summary>
 public class HoldCardBehavior : MonoBehaviour
 {
-    [Header("ゲーム中に使用するカード")]
-    [SerializeField] Card[] _cards;
     [Header("カードの操作で使用する親オブジェクト")]
     [SerializeField] Transform _field;
     [SerializeField] Transform _hand;
     [Header("プレイヤー側として扱う")]
     [SerializeField] bool _isPlayerHold;
 
-    void Awake()
+    void Start()
     {
-        if (_isPlayerHold) InitCardSubscribe();
+        if (_isPlayerHold)
+        {
+            Card[] cards = GetComponent<CardRegister>().PlayerCards;
+            InitCardSubscribe(cards);
+        }
     }
 
     /// <summary>
     /// プレイヤー側の場合はカードをマウスクリックで操作出来るようにする
     /// </summary>
-    void InitCardSubscribe()
+    void InitCardSubscribe(Card[] cards)
     {
-        foreach (Card card in _cards)
+        foreach (Card card in cards)
         {
             // IPointer系と違ってコライダーを付けないと反応しない
             card.OnMouseUpAsObservable().Subscribe(_ => SwapCard(card.transform));
