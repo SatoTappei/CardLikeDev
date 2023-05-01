@@ -2,7 +2,6 @@ using Photon.Pun;
 using UnityEngine;
 using UnityEngine.UI;
 using ExitGames.Client.Photon;
-using Photon.Realtime;
 
 /// <summary>
 /// プレイヤーの操作を管理する
@@ -26,45 +25,37 @@ public class PlayerManager : MonoBehaviourPunCallbacks
     void Awake()
     {
         _submitButton.onClick.AddListener(SubmitSelectedCard);
-
-        Player1Selected = NonSelected;
-        Player2Selected = NonSelected;
+        ResetSelectedCard();
     }
 
     /// <summary>
-    /// 静的関数として実装しているので他のクラスでもプレイヤー番号で
-    /// カスタムプロパティのキーを取得したい場合はこのメソッドを呼び出すこと
-    /// </summary>
-    static string GetPlayerCustomPropertyKey(int playerNum)
-    {
-        if (playerNum == 1)
-        {
-            return "Player1";
-        }
-        else if(playerNum == 2)
-        {
-            return "Player2";
-        }
-        else
-        {
-            throw new System.ArgumentOutOfRangeException("引数はプレイヤーの番号なので1もしくは2");
-        }
-    }
-
-    /// <summary>
-    /// Fieldの子になっているカードを取得することで、選択したカードを保持する
+    /// このメソッドを呼ぶと選択したカードが同期される
     /// カードの選択はローカルで行い、選択したカードの番号のみを同期する
     /// </summary>
     void SubmitSelectedCard()
     {
-        string key = GetPlayerCustomPropertyKey(PhotonNetwork.LocalPlayer.ActorNumber);
+        if (_field.childCount == 0)
+        {
+            GameManager.Instance.PlaySE(AudioType.SE_Cancel);
+            return;
+        }
 
+        string key = Utility.GetPlayerCustomPropertyKey(PhotonNetwork.LocalPlayer.ActorNumber);
         Hashtable hashtable = new Hashtable();
         hashtable[key] = _field.GetChild(0).GetComponent<Card>().Num;
         PhotonNetwork.CurrentRoom.SetCustomProperties(hashtable);
 
-        // このメソッドを呼ぶと選択したカードが同期されるので
-        // 次のターンまでボタンを押せないようにする処理をここに書く
+        _submitButton.interactable = false;
+    }
+
+    /// <summary>
+    /// 選択したカードをリセットする
+    /// 外部からターンの最初に呼ばれる
+    /// </summary>
+    public void ResetSelectedCard()
+    {
+        Player1Selected = NonSelected;
+        Player2Selected = NonSelected;
     }
 
     /// <summary>
@@ -76,14 +67,29 @@ public class PlayerManager : MonoBehaviourPunCallbacks
         return Player1Selected != NonSelected && Player2Selected != NonSelected;
     }
 
+    /// <summary>
+    /// お互いのプレイヤーが選んだカードの番号が渡されてくる
+    /// プレイヤー番号に応じて選択したカードを反映する
+    /// </summary>
     public override void OnRoomPropertiesUpdate(Hashtable propertiesThatChanged)
     {
-        // お互いのプレイヤーが選んだ番号がこのメソッドに入ってくる
-        // ここでそれぞれのプレイヤーの番号に反映させたい
-        // 今はテストとしてプレイヤーの番号と選んだカード番号を表示している
         foreach (System.Collections.DictionaryEntry prop in propertiesThatChanged)
         {
-            Debug.Log($"{prop.Key}: {prop.Value}");
+            Debug.Log($"{prop.Key}:{prop.Value}");
+
+            if (prop.Key as string == Utility.Player1CustomPropertyKey)
+            {
+                Player1Selected = (int)prop.Value;
+            }
+            else if (prop.Key as string == Utility.Player2CustomPropertyKey)
+            {
+                Player2Selected = (int)prop.Value;
+            }
+            else
+            {
+                throw new System.InvalidOperationException(
+                    $"プレイヤーを識別するCustomPropertyのキーの値が不正: {prop.Key}");
+            }
         }
     }
 }

@@ -815,8 +815,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 79c93ac2da8dfb54dbbcbfb8c6f166f8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _fadeModule:
-    gameObject: {fileID: 1089282697}
+  _audioDatas:
+  - _key: 0
+    _clip: {fileID: 8300000, guid: 807dfda5d2c6ac146a107e5e6081d1b6, type: 3}
+    _volume: 1
 --- !u!1 &1580548706
 GameObject:
   m_ObjectHideFlags: 0

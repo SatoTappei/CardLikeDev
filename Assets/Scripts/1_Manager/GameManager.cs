@@ -17,7 +17,11 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
 
-    [SerializeField] FadeModule _fadeModule;
+    [Header("再生する音のデータ")]
+    [SerializeField] AudioData[] _audioDatas;
+
+    FadeModule _fadeModule;
+    AudioModule _audioModule;
 
     /// <summary>タイトルでボタンを押した際にゲームモードが決定される</summary>
     public GameMode CurrentGameMode { get; set; }
@@ -28,6 +32,10 @@ public class GameManager : MonoBehaviour
         {
             Instance = this;
             DontDestroyOnLoad(gameObject);
+
+            _fadeModule = new (gameObject);
+            _audioModule = new (gameObject, _audioDatas);
+
         }
         else
         {
@@ -41,8 +49,10 @@ public class GameManager : MonoBehaviour
         _fadeModule.FadeOut(() => SceneManager.LoadScene(nextScene));
     }
 
-    public void FadeIn()
+    void FadeIn()
     {
         _fadeModule.FadeIn();
     }
+
+    public void PlaySE(AudioType type) => _audioModule.PlaySE(type);
 }
