@@ -27,16 +27,18 @@ public class InGameStream : MonoBehaviourPunCallbacks
     [Header("デバッグ用")]
     [SerializeField] Text _text;
 
-    Dictionary<StateType, StateTypeBase> _stateDic = new Dictionary<StateType, StateTypeBase>();
+    Dictionary<StateType, StateTypeBase> _stateDict = new();
     StateTypeBase _currentState;
 
     void Awake()
     {
         StateTypeStartPerformance stateTypeStartPerformance = new(this, _startPerformance);
         StateTypeCardSelect stateTypeCardSelect = new(this);
+        StateTypeJudge stateTypeJudge = new(this);
 
-        _stateDic.Add(StateType.StartPerformance, stateTypeStartPerformance);
-        _stateDic.Add(StateType.CardSelect, stateTypeCardSelect);
+        _stateDict.Add(StateType.StartPerformance, stateTypeStartPerformance);
+        _stateDict.Add(StateType.CardSelect, stateTypeCardSelect);
+        _stateDict.Add(StateType.Judge, stateTypeJudge);
 
         _currentState = stateTypeStartPerformance;
     }
@@ -64,7 +66,7 @@ public class InGameStream : MonoBehaviourPunCallbacks
     //    Debug.Log(number);
     //}
 
-    public StateTypeBase GetState(StateType type) => _stateDic[type];
+    public StateTypeBase GetState(StateType type) => _stateDict[type];
 
     public bool IsAllPlayerSelected() => _selectedCardHolder.IsAllPlayerSelected();
 

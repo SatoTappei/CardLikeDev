@@ -42,7 +42,7 @@ public class SelectedCardHolder : MonoBehaviourPunCallbacks
         }
 
         string key = Utility.GetPlayerCustomPropertyKey(PhotonNetwork.LocalPlayer.ActorNumber);
-        Hashtable hashtable = new Hashtable();
+        Hashtable hashtable = new ();
         hashtable[key] = _field.GetChild(0).GetComponent<Card>().Num;
         PhotonNetwork.CurrentRoom.SetCustomProperties(hashtable);
 
