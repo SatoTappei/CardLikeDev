@@ -23,16 +23,15 @@ public enum StateType
 public class InGameStream : MonoBehaviourPunCallbacks
 {
     [SerializeField] StartPerformance _startPerformance;
+    [SerializeField] SelectedCardHolder _selectedCardHolder;
+    [Header("デバッグ用")]
     [SerializeField] Text _text;
 
-    SelectedCardHolder _playerManager;
     Dictionary<StateType, StateTypeBase> _stateDic = new Dictionary<StateType, StateTypeBase>();
     StateTypeBase _currentState;
 
     void Awake()
     {
-        _playerManager = GetComponent<SelectedCardHolder>();
-
         StateTypeStartPerformance stateTypeStartPerformance = new(this, _startPerformance);
         StateTypeCardSelect stateTypeCardSelect = new(this);
 
@@ -67,7 +66,7 @@ public class InGameStream : MonoBehaviourPunCallbacks
 
     public StateTypeBase GetState(StateType type) => _stateDic[type];
 
-    public bool IsAllPlayerSelected() => _playerManager.IsAllPlayerSelected();
+    public bool IsAllPlayerSelected() => _selectedCardHolder.IsAllPlayerSelected();
 
     public override void OnPlayerLeftRoom(Player otherPlayer)
     {
